@@ -19,6 +19,10 @@ public class StudentManager {
         }
     }
 
+    public ArrayList<Student> getStudents() {
+        return new ArrayList<>(students);
+    }
+
     public Student searchStudent(int id) {
         for (Student s : students) {
             if (s.getId() == id) {
