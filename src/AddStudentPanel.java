@@ -65,7 +65,7 @@ public class AddStudentPanel extends JPanel {
                 emailField.setText("");
                 courseField.setText("");
                 // If ViewStudentPanel is present, refresh its data
-                for (Component c : frame.getMainContainer().getComponents()) {
+                for (Component c : frame.getContentPanel().getComponents()) {
                     if (c instanceof ViewStudentPanel) {
                         ((ViewStudentPanel) c).loadStudents(frame);
                     }
@@ -75,6 +75,7 @@ public class AddStudentPanel extends JPanel {
             }
         });
         backBtn.addActionListener(e -> {
+            frame.setSidebarVisible(true);
             frame.showPage("DASHBOARD");
         });
     }
