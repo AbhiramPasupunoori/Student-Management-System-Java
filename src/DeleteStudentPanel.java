@@ -34,7 +34,7 @@ public class DeleteStudentPanel extends JPanel {
 				if (deleted) {
 					JOptionPane.showMessageDialog(this, "Student deleted successfully.");
 					// refresh view panel if present
-					for (Component c : frame.getMainContainer().getComponents()) {
+					for (Component c : frame.getContentPanel().getComponents()) {
 						if (c instanceof ViewStudentPanel) {
 							((ViewStudentPanel) c).loadStudents(frame);
 						}

@@ -49,15 +49,16 @@ public class LoginPanel extends JPanel {
             if (username.equals("admin") && password.equals("admin123")) {
                 // create and add dashboard if not already present
                 try {
-                    Component[] comps = frame.getMainContainer().getComponents();
+                    Component[] comps = frame.getContentPanel().getComponents();
                     boolean hasDashboard = false;
                     for (Component c : comps) {
                         if (c instanceof DashboardPanel) { hasDashboard = true; break; }
                     }
                     if (!hasDashboard) {
-                        DashboardPanel dashboard = new DashboardPanel(frame);
-                        frame.getMainContainer().add(dashboard, "DASHBOARD");
+                        DashboardPanel dashboard = new DashboardPanel();
+                        frame.getContentPanel().add(dashboard, "DASHBOARD");
                     }
+                    frame.setSidebarVisible(true);
                     frame.showPage("DASHBOARD");
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Unable to open dashboard: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
