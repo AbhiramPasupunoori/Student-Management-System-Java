@@ -18,27 +18,50 @@ public class StudentGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel inputPanel = new JPanel(new GridLayout(5, 2, 8, 8));
+        JPanel inputPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.BOTH;
 
-        inputPanel.add(new JLabel("ID:"));
+        // Create labels and fields
+        JLabel idLabel = new JLabel("ID:");
         idField = new JTextField();
-        inputPanel.add(idField);
-
-        inputPanel.add(new JLabel("Name:"));
+        JLabel nameLabel = new JLabel("Name:");
         nameField = new JTextField();
-        inputPanel.add(nameField);
-
-        inputPanel.add(new JLabel("Age:"));
+        JLabel ageLabel = new JLabel("Age:");
         ageField = new JTextField();
-        inputPanel.add(ageField);
-
-        inputPanel.add(new JLabel("Email:"));
+        JLabel emailLabel = new JLabel("Email:");
         emailField = new JTextField();
-        inputPanel.add(emailField);
-
-        inputPanel.add(new JLabel("Course:"));
+        JLabel courseLabel = new JLabel("Course:");
         courseField = new JTextField();
-        inputPanel.add(courseField);
+
+        // Top row: ID (left), Name (right)
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 1; gbc.weightx = 0.4;
+        inputPanel.add(idLabel, gbc);
+        gbc.gridx = 1; gbc.gridy = 0; gbc.gridwidth = 2; gbc.weightx = 0.6;
+        inputPanel.add(idField, gbc);
+
+        gbc.gridx = 3; gbc.gridy = 0; gbc.gridwidth = 1; gbc.weightx = 0.4;
+        inputPanel.add(nameLabel, gbc);
+        gbc.gridx = 4; gbc.gridy = 0; gbc.gridwidth = 2; gbc.weightx = 0.6;
+        inputPanel.add(nameField, gbc);
+
+        // Middle row: Age centered
+        gbc.gridx = 2; gbc.gridy = 1; gbc.gridwidth = 2; gbc.weightx = 1.0;
+        inputPanel.add(ageLabel, gbc);
+        gbc.gridx = 2; gbc.gridy = 2; gbc.gridwidth = 2; gbc.weightx = 1.0;
+        inputPanel.add(ageField, gbc);
+
+        // Bottom row: Email (left), Course (right)
+        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2; gbc.weightx = 0.5;
+        inputPanel.add(emailLabel, gbc);
+        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2; gbc.weightx = 0.5;
+        inputPanel.add(emailField, gbc);
+
+        gbc.gridx = 3; gbc.gridy = 3; gbc.gridwidth = 2; gbc.weightx = 0.5;
+        inputPanel.add(courseLabel, gbc);
+        gbc.gridx = 3; gbc.gridy = 4; gbc.gridwidth = 2; gbc.weightx = 0.5;
+        inputPanel.add(courseField, gbc);
 
         addButton = new JButton("Add Student");
         searchButton = new JButton("Search Student");
@@ -55,7 +78,7 @@ public class StudentGUI extends JFrame {
         Font tableFont = new Font("Segoe UI", Font.PLAIN, 13);
         Font tableHeaderFont = new Font("Segoe UI", Font.BOLD, 14);
 
-        Color backgroundColor = new Color(232, 241, 249);
+        Color backgroundColor = new Color(225, 235, 245);
         Color panelColor = new Color(241, 248, 255);
         Color fieldBackground = Color.WHITE;
         Color fieldForeground = new Color(34, 34, 34);
@@ -67,7 +90,7 @@ public class StudentGUI extends JFrame {
         Color dangerButton = new Color(231, 76, 60);
         Color neutralButton = new Color(108, 117, 125);
 
-        inputPanel.setBackground(Color.WHITE);
+        inputPanel.setBackground(new Color(250, 252, 254));
         inputPanel.setBorder(
             BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(226, 232, 240), 1),
@@ -177,13 +200,27 @@ public class StudentGUI extends JFrame {
         clearButton.setBackground(dark);
         exitButton.setBackground(dark);
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 5, 8, 8));
+        JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(backgroundColor);
-        buttonPanel.add(addButton);
-        buttonPanel.add(searchButton);
-        buttonPanel.add(viewButton);
-        buttonPanel.add(updateButton);
-        buttonPanel.add(deleteButton);
+        GridBagConstraints bgc = new GridBagConstraints();
+        bgc.insets = new Insets(8, 8, 8, 8);
+        bgc.fill = GridBagConstraints.BOTH;
+        bgc.weightx = 1.0;
+
+        // Top row: 3 primary buttons
+        bgc.gridx = 0; bgc.gridy = 0; bgc.gridwidth = 1;
+        buttonPanel.add(addButton, bgc);
+        bgc.gridx = 1; buttonPanel.add(searchButton, bgc);
+        bgc.gridx = 2; buttonPanel.add(viewButton, bgc);
+
+        // Second row: centered two buttons (update, delete)
+        bgc.gridy = 1; bgc.gridx = 0; bgc.gridwidth = 3;
+        JPanel mid = new JPanel(new GridLayout(1,3,8,8));
+        mid.setOpaque(false);
+        mid.add(updateButton);
+        mid.add(deleteButton);
+        mid.add(new JLabel()); // spacer to keep centered
+        buttonPanel.add(mid, bgc);
 
         JLabel titleLabel = new JLabel("Student Management System", SwingConstants.CENTER);
         titleLabel.setFont(titleFont);
@@ -221,7 +258,7 @@ public class StudentGUI extends JFrame {
         table.setShowGrid(false);
         table.setAutoCreateRowSorter(true);
 
-        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.getTableHeader().setFont(tableHeaderFont);
         table.getTableHeader().setBackground(new Color(30, 41, 59));
         table.getTableHeader().setForeground(Color.WHITE);
         table.getTableHeader().setOpaque(true);
@@ -236,7 +273,7 @@ public class StudentGUI extends JFrame {
         bottomPanel.add(exitButton);
 
         setLayout(new BorderLayout(12, 12));
-        getContentPane().setBackground(new Color(248, 250, 252));
+        getContentPane().setBackground(backgroundColor);
 
         add(northPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
