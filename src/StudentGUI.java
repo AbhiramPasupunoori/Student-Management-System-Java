@@ -79,16 +79,10 @@ public class StudentGUI extends JFrame {
         Font tableHeaderFont = new Font("Segoe UI", Font.BOLD, 14);
 
         Color backgroundColor = new Color(225, 235, 245);
-        Color panelColor = new Color(241, 248, 255);
         Color fieldBackground = Color.WHITE;
         Color fieldForeground = new Color(34, 34, 34);
         Color labelColor = new Color(33, 37, 41);
         Color primaryButton = new Color(52, 152, 219);
-        Color successButton = new Color(46, 204, 113);
-        Color infoButton = new Color(241, 196, 15);
-        Color accentButton = new Color(155, 89, 182);
-        Color dangerButton = new Color(231, 76, 60);
-        Color neutralButton = new Color(108, 117, 125);
 
         inputPanel.setBackground(new Color(250, 252, 254));
         inputPanel.setBorder(
@@ -172,7 +166,6 @@ public class StudentGUI extends JFrame {
         Color danger = new Color(239, 68, 68);        // Red
         Color secondary = new Color(99, 102, 241);    // Indigo
         Color dark = new Color(31, 41, 55);           // Dark Gray
-        Color background = new Color(248, 250, 252);  // Light Gray
 
         addButton.setForeground(Color.WHITE);
         searchButton.setForeground(Color.WHITE);
